@@ -1,0 +1,15 @@
+{
+  "name": "node-rpc-rsh",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-json-rpc": "0.0.1"
+  }
+}
