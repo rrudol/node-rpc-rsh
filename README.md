@@ -8,8 +8,12 @@ Run `client.js` on user machine and provide command as a argument.
 node client.js ls
 ```
 
-You can also pass arguments:
+Passing arguments:
 ```
 node client.js ls -l
 ```
 
+Piping input:
+```
+ls -l | node client.js grep pac
+```
