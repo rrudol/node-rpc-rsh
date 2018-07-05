@@ -1,36 +1,26 @@
 const { spawn } = require('child_process');
+const rpc = require('node-json-rpc');
+const serv = new rpc.Server({ port: 5433, host: '127.0.0.1', path: '/' });
 
-var rpc = require('node-json-rpc');
- 
-var options = {
-  port: 5433,
-  host: '127.0.0.1',
-  path: '/',
-};
-
- 
-var serv = new rpc.Server(options);
- 
-serv.addMethod('myMethod', function (para, callback) {
-  var error, result;
-
-  const child = spawn('../RPC-RSH/a.out', ['komenda']);
+serv.addMethod('sh', (para, cb) => {
+  const command = Buffer.from(para.command.data).toString();
+  const program = command.split(' ')[0];
+  const args = command.split(' ').slice(1);
+  const input = Buffer.from(para.input.data).toString();
+  const child = spawn(program, args);
   child.stdin.setEncoding('utf-8');
-  
+  let response = "";
   child.stdout.on('data', (chunk) => {
-    console.log(chunk.toString());
+    response += chunk.toString();
   });
-
-  setTimeout(function(){
-    child.stdin.write("console.log('Hey there')\n");
+  setTimeout(() => {
+    child.stdin.write(input);
     child.stdin.end();
-  }, 100);
-  
+  }, 1);
   child.on('close', (code) => {
+    cb(false, response);
     console.log(`child process exited with code ${code}`);
   });
- 
-  callback(error, 10);
 });
  
 serv.start(error => {
