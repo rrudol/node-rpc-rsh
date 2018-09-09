@@ -10,6 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^2.4.1",
     "node-json-rpc": "0.0.1"
+  },
+  "bin": {
+    "nrpc": "client.js",
+    "nrps": "server.js"
   }
 }
