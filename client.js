@@ -60,7 +60,6 @@ process.stdin.setEncoding("utf8");
 setTimeout(() => rsh(command, ""), 100);
 
 process.stdin.on("data", chunk => {
-  // clearTimeout(timeout);
   data += chunk;
 });
 
